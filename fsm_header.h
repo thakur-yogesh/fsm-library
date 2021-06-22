@@ -2,6 +2,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+
+#define MAX_TABLE_ENTRIES 256
+#define MAX_STATE_NAME_SIZE 32
+#define MAX_FSM_NAME_SIZE 128
 enum Final_state{
   //bools for final state
     fsm_false,
@@ -14,11 +18,11 @@ struct tt_entry{
 };
 struct tt{
   //transition table
-    struct tt_entry tt_e[100];
+    struct tt_entry tt_e[MAX_TABLE_ENTRIES];
 };
 struct state_t{
     //name for state
-    char name[100];
+    char name[MAX_STATE_NAME_SIZE];
     //transition table
     struct tt state_trans_table;
     //bool variable for checking whether a state is final or not
@@ -26,7 +30,7 @@ struct state_t{
 };
 struct fsm{
   //name of the finite state machine
-    char fsm_name[100];
+    char fsm_name[MAX_FSM_NAME_SIZE];
   //pointer to the initial state
     struct state_t *initial_state;
 };
@@ -118,7 +122,7 @@ int fsm_execute(struct fsm *fsm_,char *input,int length)
         printf("%s -> ",current_state->name);
         next_state = match(current_state,input[cursor]);
         current_state = next_state;
-        printf("%s\n",current_state->name);
+        printf("%s  | on key: %c\n",current_state->name,input[cursor]);
         next_state = 0;
         cursor++;
     }
