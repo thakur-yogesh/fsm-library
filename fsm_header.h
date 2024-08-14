@@ -72,7 +72,7 @@ struct tt_entry *get_next(struct tt *table)
     return ptr;
 };
 
-void create_tt_entry(struct tt *table,char transition_key,struct state *next_state)
+void create_tt_entry(struct tt *table,char transition_key,struct state_t *next_state)
 {
   //api for populating transition table entry
     struct tt_entry *tt_ptr;
@@ -83,19 +83,19 @@ void create_tt_entry(struct tt *table,char transition_key,struct state *next_sta
 
 
 
-void set_initial_state(struct fsm *fsm_,struct state *initial_state)
+void set_initial_state(struct fsm *fsm_,struct state_t *initial_state)
 {
   //api for setting initial state
     fsm_->initial_state = initial_state;
 }
 
-struct state_ *match(struct state_t *current_state,char key)
+struct state_t *match(struct state_t *current_state,char key)
 {
   //this funtion will be used to match input charater with transition keys of the state
     struct tt *table;
     table = &current_state->state_trans_table;
     struct tt_entry *tt_e;
-    struct state_ *next_state;
+    struct state_t *next_state;
     int entry = 0;
     while(1)
     {
